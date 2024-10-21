@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "Spanish or Vanish 9000",
+    "description": "...",
+    "version": "1.0",
+    "action": {
+      "default_popup": "hello.html",
+      "default_icon": "PNG_transparency_demonstration_1.png"
+    },
+    "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": [
+        "https://*.duolingo.com/*"
+      ]
+    }
+  ]
+}
