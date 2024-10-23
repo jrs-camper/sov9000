@@ -1,35 +1,40 @@
-function get_element_by_class_name(name) {
-  let elements = Array(document.getElementsByClassName(name.split(" ")[0]))
-  console.log(typeof(elements))
+function get_element_by_class_name(name,exclude="") {
+  let es = [].slice.call(document.getElementsByClassName(name.split(" ")[0]))
   for (i in name.split(" ")){
-    let element = Array(document.getElementsByClassName(name.split(" ")[i]))
-    if (element) {
-      elements.filter((a)=>(element.includes(a)))
+    let e = [].slice.call(document.getElementsByClassName(name.split(" ")[i]))
+    if (e) {
+      es = es.filter((a)=>(e.includes(a)))
+    }
+  }
+  for (i in exclude.split(" ")){
+    let e = [].slice.call(document.getElementsByClassName(exclude.split(" ")[i]))
+    if (e) {
+      es = es.filter((a)=>(!e.includes(a)))
     }
   }
 
-  return elements[0]
+  return es
 }
 
-function change_element(c,text){
-  const element = get_element_by_class_name(c)[0]
+function change_element(c,text,exclude=""){
+  const elements = get_element_by_class_name(c,exclude)
 
-  if (element) {
-    element.innerHTML = text
+  for (i in elements) {
+    elements[i].innerHTML = text
   }
 
   setTimeout(()=>{change_element(c,text)},10);
 }
 
-function change_element_shuffle_func(c,func, text=null){
-  const element = get_element_by_class_name(c)[0]
+function change_element_shuffle_func(c,func, text=null,exclude=""){
+  const elements = get_element_by_class_name(c,exclude)[0]
 
   if (text == null) {
     text = func();
   }
 
-  if (element) {
-    element.innerHTML = text
+  if (elements) {
+    elements.innerHTML = text
   } else {
     text = func();
   }
@@ -42,7 +47,7 @@ const choice = (arr) => {return arr[Math.floor(Math.random()*arr.length)]}
 function sov_fix_ui() {
   console.log("started")
 
-  change_element("NhJUE",
+  change_element("NhJUE OWSZL",
     choice([
       "You should work harder",
       "No assignments is no exscuse to not work",
@@ -52,8 +57,9 @@ function sov_fix_ui() {
     ])
   )
 
-  change_element("_2XuVq","Duo says:")
-  change_element("TuzfC",
+  change_element("_2m2uK","Duo says:")
+
+  change_element("_1T5fG",
     choice([
       "You require reinforced learning",
       "Eat my feet",
@@ -62,15 +68,16 @@ function sov_fix_ui() {
       "Sunlight is unhealthy",
       "Light from screens helps your eyes",
       "I have a knife",
-      "Learning a language is the only way to survive (in life)"
+      "Learning a language is the only way to survive (in life)",
+      "*"
     ])
   )
 
-  change_element_shuffle_func("_1DLP9 _2GMvD",
+  change_element_shuffle_func("_36bu_ _2GMvD _2ka0w _1K3po",
     ()=>{return choice([
       "I know where you live",
-      "Failing is no exscuse to stop",
-      "Keep working. Or else...",
+      "Failing is no excuse to stop",
+      "Keep working... Or else...",
       "You have one more chance... or else...",
       "You failed",
       "You suck",
@@ -80,7 +87,7 @@ function sov_fix_ui() {
       "I have a gun",
       "Run",
       "I'm hungry"
-    ])}
+    ],exclude="_27IMa")}
   )
 }
 
